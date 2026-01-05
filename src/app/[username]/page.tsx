@@ -10,6 +10,7 @@ interface Link {
   url: string;
   icon: string | null;
   type: String;
+  meta_data?: any;
 }
 
 interface Profile {
