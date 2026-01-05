@@ -101,3 +101,28 @@ export async function updateProfile(formData: FormData) {
   revalidatePath('/admin')
   revalidatePath(`/${username}`)
 }
+
+export async function addMonobankLink(formData: FormData) {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return
+
+  const url = formData.get('url') as string
+  // ТЕПЕР ЧИТАЄМО НАЗВУ З ФОРМИ
+  // Якщо користувач нічого не ввів, тоді вже ставимо дефолтну
+  const title = (formData.get('title') as string) || "Моя Банка"
+
+  if (!url.includes('send.monobank.ua')) {
+    return 
+  }
+
+  await supabase.from('links').insert({
+    title, // Зберігаємо те, що ввів юзер
+    url,
+    type: 'monobank',
+    user_id: user.id,
+    icon: 'monobank'
+  })
+
+  revalidatePath('/admin')
+}

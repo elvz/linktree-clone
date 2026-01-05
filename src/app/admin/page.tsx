@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
-import { addLink, deleteLink, updateProfile } from "./actions"; // Додали updateProfile
+import { addLink, deleteLink, updateProfile, addMonobankLink } from "./actions"; // Додали updateProfile
 
 export default async function AdminPage() {
   const supabase = await createClient();
@@ -34,7 +34,7 @@ export default async function AdminPage() {
             <p className="text-gray-500 text-xs">{user.email}</p>
           </div>
           <form action="/auth/signout" method="post">
-            <button className="text-sm text-red-500 hover:bg-red-50 px-3 py-1.5 rounded transition font-medium">
+            <button className="cursor-pointer text-sm text-red-500 hover:bg-red-50 px-3 py-1.5 rounded transition font-medium">
               Вийти
             </button>
           </form>
@@ -116,7 +116,7 @@ export default async function AdminPage() {
                </div>
             </div>
 
-            <button className="bg-gray-900 text-white px-4 py-2 rounded-lg hover:bg-black transition text-sm">
+            <button className="cursor-pointer bg-gray-900 text-white px-4 py-2 rounded-lg hover:bg-black transition text-sm">
               Зберегти зміни
             </button>
           </form>
@@ -124,7 +124,7 @@ export default async function AdminPage() {
         {/* --- КІНЕЦЬ НОВОГО БЛОКУ --- */}
 
         {/* Форма додавання */}
-        <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+        {/* <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
           <h2 className="text-lg font-semibold mb-4">Додати нове посилання</h2>
           <form action={addLink} className="flex flex-col gap-3 md:flex-row">
             <input 
@@ -139,11 +139,74 @@ export default async function AdminPage() {
               required
               className="flex-1 p-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-black outline-none"
             />
-            <button className="bg-black text-white px-6 py-2 rounded-lg hover:bg-gray-800 transition font-medium">
+            <button className="cursor-pointer bg-black text-white px-6 py-2 rounded-lg hover:bg-gray-800 transition font-medium">
+              Додати
+            </button>
+          </form>
+        </div> */}
+
+        {/* --- ВАРІАНТ: РОЗДІЛЕНІ БЛОКИ --- */}
+        
+        {/* 1. Блок для звичайних посилань (Основний) */}
+        <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+          <h2 className="text-lg font-semibold mb-4 text-gray-800">Додати посилання</h2>
+          <form action={addLink} className="flex flex-col md:flex-row gap-3">
+            <input 
+              name="title" 
+              placeholder="Назва (напр. Instagram)" 
+              required
+              className="flex-1 p-3 border border-gray-200 rounded-lg text-sm outline-none focus:border-black transition"
+            />
+            <input 
+              name="url" 
+              placeholder="URL (https://...)" 
+              required
+              className="flex-1 p-3 border border-gray-200 rounded-lg text-sm outline-none focus:border-black transition"
+            />
+            <button className="bg-gray-900 text-white px-6 py-3 rounded-lg hover:bg-black text-sm font-medium transition whitespace-nowrap">
               Додати
             </button>
           </form>
         </div>
+
+        {/* 2. Блок для Монобанку (Виділений як "Special") */}
+        <div className="bg-gradient-to-r from-gray-50 to-white rounded-xl shadow-sm p-6 border border-gray-200 dashed-border">
+          <div className="flex items-center gap-2 mb-4">
+            <div className="w-8 h-8 bg-black rounded-full flex items-center justify-center text-white text-xs">
+              🐈
+            </div>
+            <h2 className="text-lg font-semibold text-gray-800">Віджет Монобанку</h2>
+            <span className="bg-black text-white text-[10px] px-2 py-0.5 rounded-full ml-auto">NEW</span>
+          </div>
+
+          <form action={addMonobankLink} className="flex flex-col md:flex-row gap-3 items-end">
+            <div className="w-full md:w-1/3">
+              <label className="text-xs text-gray-500 mb-1 block ml-1">Назва збору</label>
+              <input 
+                name="title" 
+                placeholder="Напр: На мавік" 
+                className="w-full p-3 border border-gray-200 rounded-lg text-sm outline-none focus:border-black transition bg-white"
+              />
+            </div>
+            
+            <div className="w-full md:w-2/3">
+              <label className="text-xs text-gray-500 mb-1 block ml-1">Посилання на банку</label>
+              <div className="flex gap-2">
+                <input 
+                  name="url" 
+                  placeholder="https://send.monobank.ua/jar/..." 
+                  required
+                  className="w-full p-3 border border-gray-200 rounded-lg text-sm outline-none focus:border-black transition bg-white"
+                />
+                <button className="bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800 text-sm font-medium transition whitespace-nowrap flex items-center gap-2">
+                  <span>Додати</span>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        
 
         {/* Список посилань */}
         <div className="space-y-3">
@@ -164,7 +227,7 @@ export default async function AdminPage() {
               
               <form action={deleteLink}>
                 <input type="hidden" name="linkId" value={link.id} />
-                <button className="text-gray-300 hover:text-red-500 transition p-2">
+                <button className="cursor-pointer text-gray-300 hover:text-red-500 transition p-2">
                   {/* Іконка смітника (SVG) */}
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
                 </button>

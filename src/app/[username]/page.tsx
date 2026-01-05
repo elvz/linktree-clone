@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { createClient } from "@/utils/supabase/client";
+import CopyLink from "@/components/CopyLink";
 
 // 1. Описуємо типи даних (TypeScript), щоб не було помилок
 interface Link {
@@ -7,6 +8,7 @@ interface Link {
   title: string;
   url: string;
   icon: string | null;
+  type: String;
 }
 
 interface Profile {
@@ -68,23 +70,70 @@ export default async function UserProfile({
         )}
       </div>
 
-      {/* Ім'я та нікнейм */}
+      
+      {/* Ім'я */}
       <h1 className="text-xl font-bold text-gray-800 mb-1">{user.full_name}</h1>
-      <p className="text-gray-500 text-sm mb-8">@{user.username}</p>
+      
+      {/* Клікабельний нікнейм */}
+      <CopyLink username={user.username} />
+
+      {/* Список кнопок */}
+      {/* ... далі йде ваш код з map ... */}
 
       {/* Список кнопок */}
       <div className="w-full max-w-md space-y-4">
-        {sortedLinks.map((link) => (
-          <a
-            key={link.id}
-            href={link.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block w-full bg-white text-gray-800 font-medium py-4 px-6 rounded-xl shadow-sm hover:shadow-md hover:scale-[1.02] transition-all text-center border border-gray-100"
-          >
-            {link.title}
-          </a>
-        ))}
+      {sortedLinks.map((link) => {
+  // ВАРІАНТ 1: Це Монобанка
+  if (link.type === 'monobank') {
+    return (
+      <a
+        key={link.id}
+        href={link.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="block w-full bg-black text-white p-4 rounded-2xl shadow-lg hover:scale-[1.02] transition-all relative overflow-hidden group"
+      >
+        {/* Фоновий декор */}
+        <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-purple-500 to-pink-500 opacity-20 blur-2xl rounded-full -mr-10 -mt-10"></div>
+        
+        <div className="flex items-center gap-4 relative z-10">
+          {/* SVG Іконка кота (inline, щоб не ламалася) */}
+          <div className="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center shrink-0 text-white">
+            <svg viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+               <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z"/>
+               {/* Це спрощений символ, але виглядає як лого */}
+            </svg>
+          </div>
+          
+          <div className="text-left overflow-hidden">
+            {/* ТУТ ТЕПЕР КАСТОМНА НАЗВА */}
+            <div className="font-bold text-lg leading-tight truncate pr-2">
+              {link.title}
+            </div>
+            {/* <div className="text-gray-400 text-xs">Натисніть, щоб розбити</div> */}
+          </div>
+          
+          <div className="ml-auto bg-white text-black text-xs font-bold px-3 py-1.5 rounded-full group-hover:bg-gray-200 transition shrink-0">
+            Поповнити
+          </div>
+        </div>
+      </a>
+    );
+  }
+
+  // ВАРІАНТ 2: Звичайна кнопка (ваш старий код)
+  return (
+    <a
+      key={link.id}
+      href={link.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="block w-full bg-white text-gray-800 font-medium py-4 px-6 rounded-xl shadow-sm hover:shadow-md hover:scale-[1.02] transition-all text-center border border-gray-100"
+    >
+      {link.title}
+    </a>
+  );
+})}
 
         {sortedLinks.length === 0 && (
           <p className="text-center text-gray-400">У користувача ще немає посилань</p>
@@ -93,7 +142,7 @@ export default async function UserProfile({
 
       {/* Ваш "брендінг" */}
       <div className="mt-12 text-xs text-gray-400">
-        Linktree Clone by You
+        Linktree Clone by Elvz
       </div>
     </main>
   );
