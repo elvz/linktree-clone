@@ -107,6 +107,19 @@ export async function addMonobankLink(formData: FormData) {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return
 
+  // 1. ПЕРЕВІРКА НА ПРЕМІУМ
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select('is_premium')
+    .eq('id', user.id)
+    .single()
+
+  if (!profile?.is_premium) {
+    // Якщо не преміум — нічого не робимо (або можна повернути помилку)
+    // У реальному проєкті тут краще повернути { error: "Buy Premium" }
+    return 
+  }
+
   const url = formData.get('url') as string
   // ТЕПЕР ЧИТАЄМО НАЗВУ З ФОРМИ
   // Якщо користувач нічого не ввів, тоді вже ставимо дефолтну

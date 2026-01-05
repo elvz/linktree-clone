@@ -1,10 +1,24 @@
 import { login, signup } from './actions'
+import GoogleButton from './GoogleButton' // Імпорт
 
 export default function LoginPage() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
       <form className="bg-white p-8 rounded-xl shadow-md w-full max-w-md border border-gray-100">
         <h1 className="text-2xl font-bold mb-6 text-center text-gray-800">Вхід в Linktree Clone</h1>
+        
+        {/* Кнопка Гугл */}
+        <GoogleButton />
+
+        <div className="relative mb-6">
+          <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-gray-200"></div></div>
+          <div className="relative flex justify-center text-sm"><span className="px-2 bg-white text-gray-500">або поштою</span></div>
+        </div>
+
+    {/* <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <form className="bg-white p-8 rounded-xl shadow-md w-full max-w-md border border-gray-100">
+        <h1 className="text-2xl font-bold mb-6 text-center text-gray-800">Вхід в Linktree Clone</h1> */}
         
         <div className="space-y-4">
           <div>

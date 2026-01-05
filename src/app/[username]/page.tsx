@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { createClient } from "@/utils/supabase/client";
 import CopyLink from "@/components/CopyLink";
+import AccordionLink from "@/components/AccordionLink";
 
 // 1. Описуємо типи даних (TypeScript), щоб не було помилок
 interface Link {
@@ -82,7 +83,18 @@ export default async function UserProfile({
 
       {/* Список кнопок */}
       <div className="w-full max-w-md space-y-4">
-      {sortedLinks.map((link) => {
+        {sortedLinks.map((link) => {
+        
+          if (link.type === 'pricing') {
+     return (
+        <AccordionLink 
+           key={link.id} 
+           title={link.title} 
+           data={link.meta_data} 
+        />
+     );
+          }
+          
   // ВАРІАНТ 1: Це Монобанка
   if (link.type === 'monobank') {
     return (
