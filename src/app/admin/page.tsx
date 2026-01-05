@@ -163,7 +163,7 @@ export default async function AdminPage() {
               required
               className="flex-1 p-3 border border-gray-200 rounded-lg text-sm outline-none focus:border-black transition"
             />
-            <button className="bg-gray-900 text-white px-6 py-3 rounded-lg hover:bg-black text-sm font-medium transition whitespace-nowrap">
+            <button className="cursor-pointer bg-gray-900 text-white px-6 py-3 rounded-lg hover:bg-black text-sm font-medium transition whitespace-nowrap">
               Додати
             </button>
           </form>
@@ -198,7 +198,7 @@ export default async function AdminPage() {
                   required
                   className="w-full p-3 border border-gray-200 rounded-lg text-sm outline-none focus:border-black transition bg-white"
                 />
-                <button className="bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800 text-sm font-medium transition whitespace-nowrap flex items-center gap-2">
+                <button className="cursor-pointer bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800 text-sm font-medium transition whitespace-nowrap flex items-center gap-2">
                   <span>Додати</span>
                 </button>
               </div>
