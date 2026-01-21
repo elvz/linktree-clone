@@ -1,9 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function CopyLink({ username }: { username: string }) {
   const [copied, setCopied] = useState(false);
+
+  const { t } = useLanguage();
 
   const handleCopy = () => {
     // Беремо поточне посилання з адресного рядка
@@ -39,7 +42,7 @@ export default function CopyLink({ username }: { username: string }) {
             : "opacity-0 -translate-y-2"
         }`}
       >
-        Посилання скопійовано! ✅
+        {t('linkCopied')}
       </div>
     </div>
   );

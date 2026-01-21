@@ -139,3 +139,36 @@ export async function addMonobankLink(formData: FormData) {
 
   revalidatePath('/admin')
 }
+
+// ... внизу файлу actions.ts
+
+// ... imports
+
+export async function addBmcLink(formData: FormData) {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return
+
+  const title = formData.get('title') as string
+  const url = formData.get('url') as string
+
+  // Валідація: якщо ввели просто нікнейм
+  let finalUrl = url
+  if (!url.startsWith('http')) {
+     finalUrl = `https://buymeacoffee.com/${url.replace('@', '')}`
+  }
+
+  await supabase.from('links').insert({
+    title: title || 'Buy Me a Coffee',
+    url: finalUrl,
+    type: 'bmc', // <--- ТИП: BMC
+    user_id: user.id,
+    display_order: 0, 
+  })
+
+  revalidatePath('/admin')
+  revalidatePath(`/${user.user_metadata.username}`)
+}
+
+// ... інші імпорти ...
+

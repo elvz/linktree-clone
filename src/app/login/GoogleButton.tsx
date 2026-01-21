@@ -1,8 +1,10 @@
 "use client";
 
 import { createClient } from "@/utils/supabase/client";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function GoogleButton() {
+  const { t } = useLanguage();
   const handleLogin = async () => {
     const supabase = createClient();
     
@@ -38,7 +40,7 @@ export default function GoogleButton() {
           fill="#EA4335"
         />
       </svg>
-      Увійти через Google
+      {t('loginGoogle')}
     </button>
   );
 }
