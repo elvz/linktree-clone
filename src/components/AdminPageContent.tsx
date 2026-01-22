@@ -3,8 +3,9 @@
 import { useLanguage } from "@/context/LanguageContext";
 import PricingForm from "@/components/PricingForm";
 import LanguageSwitcher from "@/components/LanguageSwitcher"; // Додамо перемикач і сюди!
-import { addLink, addMonobankLink, deleteLink, addBmcLink } from "@/app/admin/actions"; // не забудьте імпортувати addPaypalLink
+import { addLink, addMonobankLink, deleteLink, addBmcLink, addHeaderLink, profile } from "@/app/admin/actions"; // не забудьте імпортувати addPaypalLink
 import ProfileEditor from "@/components/ProfileEditor";
+import SortableLinkList from "@/components/SortableLinkList";
 
 // Типи даних
 interface AdminContentProps {
@@ -170,17 +171,37 @@ export default function AdminPageContent({ user, profile, links }: AdminContentP
             initialName={profile?.full_name || ""}
             initialColor={profile?.bg_color || "#f3f4f6"}
             avatarUrl={profile?.avatar_url}
-            username={profile?.username}
+          username={profile?.username}
+          profileTheme={profile?.theme}
         />
 
         
 
         {/* ФОРМИ ДОДАВАННЯ */}
         <div className="space-y-6 mb-8">
+          
             
             {/* 1. Звичайне посилання */}
             <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
             <h2 className="text-lg font-semibold mb-4 text-gray-800">{t('addLinkTitle')}</h2>
+            {/* --- БЛОК ДОДАВАННЯ ЗАГОЛОВКА (РОЗДІЛУ) --- */}
+            <div className="bg-gray-50 rounded-xl shadow-sm p-4 border border-gray-200 border-dashed mb-6">
+                <h2 className="text-sm font-bold text-gray-500 mb-3 uppercase tracking-wider flex items-center gap-2">
+                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 20h16"/><path d="M12 4v16"/></svg>
+                   {t('headerTitle')}
+                </h2>
+                <form action={addHeaderLink} className="flex gap-3">
+                    <input 
+                        name="title" 
+                        placeholder={t('headerPlaceholder')} 
+                        required 
+                        className="flex-1 p-2 border border-gray-300 rounded-lg text-sm outline-none focus:border-black transition" 
+                    />
+                    <button className="bg-gray-200 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-300 text-sm font-bold transition whitespace-nowrap">
+                        {t('headerAddBtn')}
+                    </button>
+                </form>
+            </div>
             <form action={addLink} className="flex flex-col md:flex-row gap-3">
                 <input name="title" placeholder={t('inputTitlePlaceholder')} required className="flex-1 p-3 border border-gray-200 rounded-lg text-sm outline-none focus:border-black transition" />
                 <input name="url" placeholder={t('inputUrlPlaceholder')} required className="flex-1 p-3 border border-gray-200 rounded-lg text-sm outline-none focus:border-black transition" />
@@ -337,39 +358,13 @@ export default function AdminPageContent({ user, profile, links }: AdminContentP
 
         {/* Список лінків */}
         <div className="space-y-3">
-          {links?.map((link) => (
-            <div key={link.id} className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between group">
-              <div className="flex items-center gap-3 overflow-hidden">
-                <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center shrink-0 text-lg">
-                  {link.type === 'monobank' ? '🐈' : link.type === 'pricing' ? '💰' : link.type === 'bmc' ? '☕' : '🔗'}
-                </div>
-                <div className="min-w-0">
-                  <div className="font-bold text-gray-800 truncate">{link.title}</div>
-                  <div className="text-xs text-gray-400 flex items-center gap-2">
-                    <span className="truncate max-w-[150px]">{link.url || t('priceTitle')}</span>
-                    <span className="text-gray-300">•</span>
-                    
-                    {/* Логіка відображення кліків */}
-                    {isPremium ? (
-                      <span className="flex items-center gap-1 text-blue-600 font-bold bg-blue-50 px-1.5 py-0.5 rounded">
-                        {link.clicks || 0} {t('clicksLabel')}
-                      </span>
-                    ) : (
-                      <span className="flex items-center gap-1 text-gray-400 bg-gray-100 px-1.5 py-0.5 rounded cursor-help" title={t('proLockDesc')}>
-                        🔒 PRO
-                      </span>
-                    )}
-                  </div>
-                </div>
-              </div>
-              <form action={deleteLink}>
-                <input type="hidden" name="linkId" value={link.id} />
-                <button className="text-gray-300 hover:text-red-500 transition p-2 hover:bg-red-50 rounded-lg cursor-pointer" title={t('delete')}>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
-                </button>
-              </form>
-            </div>
-          ))}
+          {/* Список лінків (Draggable) */}
+        <div className="mt-8">
+           <SortableLinkList 
+              initialLinks={links} 
+              isPremium={!!isPremium} // !! перетворює на boolean
+           />
+        </div>
 
           {links?.length === 0 && (
             <p className="text-center text-gray-400 py-10">{t('emptyLinks')}</p>

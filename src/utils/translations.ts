@@ -90,7 +90,7 @@ export const translations = {
     loginButton: "Увійти",
     registerButton: "Зареєструватися",
     googleButton: "Увійти через Google",
-    orText: "або поштою",
+    orText: "або з поштою",
     
     successRegister: "🎉 Акаунт створено! Перевірте вашу пошту, щоб підтвердити email.",
     errorLogin: "Невірний логін або пароль.",
@@ -110,6 +110,17 @@ export const translations = {
     bmcBtn: "Пригостити кавою",
     bmcAction: "Підтримати творчість",
     bmcAdd: "Додати кнопку кави",
+
+    headerTitle: "Створити розділ",
+    headerLabel: "Назва розділу",
+    headerPlaceholder: "Напр. 🎵 Моя музика",
+    headerAddBtn: "Додати заголовок",
+
+    themesTitle: "Тема оформлення",
+    themeMinimal: "Мінімалізм",
+    themeMidnight: "Ніч",
+    themeSunset: "Захід сонця",
+    themeOcean: "Океан",
   },
   en: {
     loading: "Loading...",
@@ -210,6 +221,17 @@ export const translations = {
     bmcBtn: "Buy a Coffee",
     bmcAction: "Support my work",
     bmcAdd: "Add Coffee Button",
+
+    headerTitle: "Create Section",
+    headerLabel: "Section Title",
+    headerPlaceholder: "E.g. 🎵 My Music",
+    headerAddBtn: "Add Header",
+
+    themesTitle: "Appearance Theme",
+    themeMinimal: "Minimal",
+    themeMidnight: "Midnight",
+    themeSunset: "Sunset",
+    themeOcean: "Ocean",
   },
   de: {
     loading: "Laden...",
@@ -310,5 +332,16 @@ export const translations = {
     bmcBtn: "Kaffee spendieren",
     bmcAction: "Unterstütze meine Arbeit",
     bmcAdd: "Kaffee-Button hinzufügen",
+
+    headerTitle: "Abschnitt erstellen",
+    headerLabel: "Abschnittstitel",
+    headerPlaceholder: "z.B. 🎵 Meine Musik",
+    headerAddBtn: "Überschrift hinzufügen",
+
+    themesTitle: "Erscheinungsbild",
+    themeMinimal: "Minimalismus",
+    themeMidnight: "Mitternacht",
+    themeSunset: "Sonnenuntergang",
+    themeOcean: "Ozean",
   },
 };

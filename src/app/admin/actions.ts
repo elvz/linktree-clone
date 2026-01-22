@@ -36,67 +36,40 @@ export async function deleteLink(formData: FormData) {
   revalidatePath('/admin')
 }
 
+// ... imports
+
 export async function updateProfile(formData: FormData) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
-  if (!user) return
+  if (!user) return;
 
   const fullName = formData.get('fullName') as string
   const username = formData.get('username') as string
   const bgColor = formData.get('bgColor') as string
-  const file = formData.get('avatar') as File // Отримуємо файл
+  // 👇 Отримуємо тему
+  const theme = formData.get('theme') as string 
+  
+  const file = formData.get('avatar') as File
 
   let avatarUrl = null;
+  // ... (ваш код завантаження аватара без змін) ...
 
-  // 1. Якщо користувач обрав файл — завантажуємо його
-  if (file && file.size > 0) {
-    // Генеруємо унікальне ім'я (щоб обійти кеш браузера)
-    const fileName = `${user.id}-${Date.now()}`
-    
-    const { data, error } = await supabase
-      .storage
-      .from('avatars') // Назва нашого відра
-      .upload(fileName, file, {
-        upsert: true // Перезаписати, якщо існує
-      })
-
-    if (error) {
-      console.error('Upload error:', error)
-      // Можна повернути помилку, але поки пропустимо
-    } else {
-      // Отримуємо публічне посилання на файл
-      const { data: publicUrlData } = supabase
-        .storage
-        .from('avatars')
-        .getPublicUrl(fileName)
-      
-      avatarUrl = publicUrlData.publicUrl
-    }
-  }
-
-  // 2. Готуємо дані для оновлення
   const updateData: any = {
     full_name: fullName,
     username: username,
     bg_color: bgColor,
+    theme: theme, // 👈 Додаємо тему в об'єкт
     updated_at: new Date().toISOString(),
   }
 
-  // Оновлюємо аватарку ТІЛЬКИ якщо вона була завантажена
   if (avatarUrl) {
     updateData.avatar_url = avatarUrl
   }
 
-  // 3. Оновлюємо базу даних
-  const { error } = await supabase
+  await supabase
     .from('profiles')
     .update(updateData)
     .eq('id', user.id)
-
-  if (error) {
-    console.error('Database error:', error)
-    return 
-  }
 
   revalidatePath('/admin')
   revalidatePath(`/${username}`)
@@ -170,5 +143,41 @@ export async function addBmcLink(formData: FormData) {
   revalidatePath(`/${user.user_metadata.username}`)
 }
 
+export async function addHeaderLink(formData: FormData) {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return
+
+  const title = formData.get('title') as string
+
+  await supabase.from('links').insert({
+    title: title || 'Section',
+    url: '', // URL пустий, бо це просто текст
+    type: 'header', // <--- НОВИЙ ТИП
+    user_id: user.id,
+    display_order: 0, // Нові елементи падають вниз
+  })
+
+  revalidatePath('/admin')
+  revalidatePath(`/${user.user_metadata.username}`)
+}
+
+export async function updateLinksOrder(items: { id: string; display_order: number }[]) {
+  const supabase = await createClient();
+  
+  // Варіант "в лоб": оновлюємо кожен запис окремо.
+  // Це найнадійніший спосіб, щоб не конфліктувати з RLS (політиками доступу).
+  const updates = items.map((item) => 
+    supabase
+      .from('links')
+      .update({ display_order: item.display_order })
+      .eq('id', item.id)
+  );
+
+  await Promise.all(updates);
+
+  // Примусово оновлюємо кеш адмінки
+  revalidatePath('/admin');
+}
 // ... інші імпорти ...
 

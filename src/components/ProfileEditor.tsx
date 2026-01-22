@@ -8,10 +8,11 @@ interface ProfileEditorProps {
   initialName: string;
   initialColor: string;
   avatarUrl: string | null;
-  username: string;
+    username: string;
+    profileTheme?: string;
 }
 
-export default function ProfileEditor({ initialName, initialColor, avatarUrl, username }: ProfileEditorProps) {
+export default function ProfileEditor({ initialName, initialColor, avatarUrl, username, profileTheme }: ProfileEditorProps) {
   const { t } = useLanguage();
   
   // Стан для прев'ю аватарки (щоб показати нову картинку до збереження)
@@ -126,6 +127,50 @@ export default function ProfileEditor({ initialName, initialColor, avatarUrl, us
                     <div className="text-sm text-gray-500">
                         {t('bgColor')}
                     </div>
+                </div>
+            </div>
+
+                  {/* ... після інпуту кольору ... */}
+
+            {/* Вибір Теми */}
+            <div>
+                <label className="text-sm text-gray-600 font-medium mb-2 block">{t('themesTitle')}</label>
+                <div className="grid grid-cols-2 gap-3">
+                    {/* Minimal */}
+                    <label className="cursor-pointer">
+                        <input type="radio" name="theme" value="minimal" className="peer hidden" defaultChecked={!profileTheme || profileTheme === 'minimal'} />
+                        <div className="border border-gray-200 rounded-lg p-3 hover:bg-gray-50 peer-checked:border-black peer-checked:ring-1 peer-checked:ring-black transition flex items-center gap-2">
+                            <div className="w-6 h-6 rounded-full border border-gray-200 bg-gray-50"></div>
+                            <span className="text-sm font-medium">{t('themeMinimal')}</span>
+                        </div>
+                    </label>
+
+                    {/* Midnight */}
+                    <label className="cursor-pointer">
+                        <input type="radio" name="theme" value="midnight" className="peer hidden" defaultChecked={profileTheme === 'midnight'} />
+                        <div className="border border-gray-200 rounded-lg p-3 hover:bg-gray-50 peer-checked:border-black peer-checked:ring-1 peer-checked:ring-black transition flex items-center gap-2">
+                            <div className="w-6 h-6 rounded-full bg-gray-900"></div>
+                            <span className="text-sm font-medium">{t('themeMidnight')}</span>
+                        </div>
+                    </label>
+
+                    {/* Sunset */}
+                    <label className="cursor-pointer">
+                        <input type="radio" name="theme" value="sunset" className="peer hidden" defaultChecked={profileTheme === 'sunset'} />
+                        <div className="border border-gray-200 rounded-lg p-3 hover:bg-gray-50 peer-checked:border-black peer-checked:ring-1 peer-checked:ring-black transition flex items-center gap-2">
+                            <div className="w-6 h-6 rounded-full bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500"></div>
+                            <span className="text-sm font-medium">{t('themeSunset')}</span>
+                        </div>
+                    </label>
+
+                    {/* Ocean */}
+                    <label className="cursor-pointer">
+                        <input type="radio" name="theme" value="ocean" className="peer hidden" defaultChecked={profileTheme === 'ocean'} />
+                        <div className="border border-gray-200 rounded-lg p-3 hover:bg-gray-50 peer-checked:border-black peer-checked:ring-1 peer-checked:ring-black transition flex items-center gap-2">
+                            <div className="w-6 h-6 rounded-full bg-gradient-to-br from-blue-400 to-emerald-400"></div>
+                            <span className="text-sm font-medium">{t('themeOcean')}</span>
+                        </div>
+                    </label>
                 </div>
             </div>
 

@@ -23,7 +23,9 @@ export default async function AdminPage() {
     .from('links')
     .select('*, clicks')
     .eq('user_id', user.id)
-    .order('display_order', { ascending: true }) // Або created_at
+    .order('display_order', { ascending: true }) // <--- БУЛО created_at, МАЄ БУТИ display_order
+    // Якщо у двох лінків однаковий order, сортуємо за часом створення
+    .order('created_at', { ascending: true });
 
   // 4. Віддаємо все у Клієнтський Компонент
   return <AdminPageContent user={user} profile={profile} links={links || []} />
