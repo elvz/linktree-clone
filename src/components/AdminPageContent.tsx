@@ -26,30 +26,69 @@ export default function AdminPageContent({ user, profile, links }: AdminContentP
               
               {/* Банер PRO */}
         {!isPremium && (
-          <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white p-6 rounded-xl shadow-lg mb-8 relative overflow-hidden">
+          <div className="bg-gray-900 text-white p-6 rounded-xl shadow-lg mb-8 relative overflow-hidden border border-gray-800">
+            {/* Фоновий ефект */}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/20 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
+            
             <div className="relative z-10">
-              <h3 className="text-xl font-bold mb-2">{t('proUnlock')}</h3>
-              <p className="mb-4 opacity-90 max-w-lg">{t('proDesc')}</p>
+              <div className="flex items-center gap-2 mb-2">
+                 <span className="bg-yellow-400 text-black text-[10px] font-bold px-2 py-0.5 rounded">PRO ACCESS</span>
+                 <h3 className="text-xl font-bold">{t('proUnlock')}</h3>
+              </div>
+              <p className="mb-6 opacity-80 max-w-lg text-sm leading-relaxed text-gray-300">{t('proDesc')}</p>
               
-              <div className="flex flex-col sm:flex-row gap-3">
+              <div className="flex flex-col sm:flex-row gap-4">
+                
+                {/* ВАРІАНТ 1: УКРАЇНА (МОНО) */}
                 <a 
-                  href="https://send.monobank.ua/jar/ВАШ_АЙДІ_БАНКИ" 
+                  href="https://send.monobank.ua/jar/25KUi8jATM" 
                   target="_blank" rel="noreferrer"
-                  className="inline-flex justify-center items-center bg-white text-gray-900 font-bold px-6 py-3 rounded-lg hover:bg-gray-100 transition"
+                  className="group flex items-center justify-between bg-white text-gray-900 px-4 py-3 rounded-lg hover:bg-gray-100 transition min-w-[200px]"
                 >
-                  {t('buyPro')}
+                  <div className="flex flex-col items-start">
+                    <span className="text-xs text-gray-500 font-bold uppercase tracking-wider">Ukraine</span>
+                    <span className="font-bold">99 UAH</span>
+                  </div>
+                  <div className="w-8 h-8 bg-black text-white rounded-full flex items-center justify-center group-hover:scale-110 transition">
+                    🐈
+                  </div>
                 </a>
+
+                {/* 2. СВІТ (PAYPAL) - ОНОВЛЕНО */}
                 <a 
-                  href="https://t.me/ВАШ_НІКНЕЙМ" 
+                  href="https://www.paypal.com/donate/?hosted_button_id=LN7TD3ZVLQ5QC" // <-- Вставте лінк з фото (Get a link)
                   target="_blank" rel="noreferrer"
-                  className="inline-flex justify-center items-center bg-black/20 text-white font-medium px-6 py-3 rounded-lg hover:bg-black/30 transition backdrop-blur-sm border border-white/10"
+                  className="group flex items-center justify-between bg-[#0070BA] text-white px-4 py-3 rounded-lg hover:bg-[#003087] transition min-w-[200px]"
                 >
+                  <div className="flex flex-col items-start">
+                    <span className="text-xs text-blue-200 font-bold uppercase tracking-wider">International</span>
+                    <span className="font-bold">5 USD (PayPal)</span>
+                  </div>
+                  {/* Логотип PayPal */}
+                  <div className="w-8 h-8 bg-white/20 text-white rounded-full flex items-center justify-center group-hover:scale-110 transition italic font-bold font-serif">
+                    P
+                  </div>
+                </a>
+
+              </div>
+
+              {/* Кнопка Підтримки */}
+              <div className="mt-6 pt-4 border-t border-gray-800 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                 <p className="text-xs text-gray-500 flex-1">
+                   {t('supportNote')} <br/>
+                   <span className="opacity-50">(Send screenshot to activate)</span>
+                 </p>
+                 <a 
+                  href="https://t.me/aelvz" 
+                  target="_blank" rel="noreferrer"
+                  className="text-xs text-white font-medium hover:underline flex items-center gap-1 opacity-80 hover:opacity-100"
+                >
+                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
                   {t('supportBtn')}
                 </a>
               </div>
-              <p className="text-xs mt-3 opacity-70">{t('supportNote')}</p>
+
             </div>
-            <div className="absolute top-0 right-0 w-40 h-40 bg-white opacity-10 rounded-full -mr-10 -mt-10 blur-3xl"></div>
           </div>
         )}
         
@@ -66,6 +105,7 @@ export default function AdminPageContent({ user, profile, links }: AdminContentP
           </div>
 
           <div className="flex items-center gap-3 w-full md:w-auto">
+            {/* Кнопка: Моя сторінка */}
             <a
               href={`/${profile?.username}`}
               target="_blank"
@@ -73,9 +113,22 @@ export default function AdminPageContent({ user, profile, links }: AdminContentP
               className="flex-1 md:flex-none flex items-center justify-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg text-sm font-medium transition border border-gray-200"
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
-              <span className="whitespace-nowrap">{t('myPage')}</span>
+              <span className="hidden sm:inline">{t('myPage')}</span>
             </a>
 
+            {/* --- НОВА КНОПКА: ПІДТРИМКА (Завжди видима) --- */}
+            <a
+              href="https://t.me/aelvz" // <-- Вставте сюди ваш нік
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center justify-center w-10 h-10 rounded-lg text-gray-400 hover:text-blue-500 hover:bg-blue-50 transition border border-transparent hover:border-blue-100"
+              title={t('supportBtn') || "Support"}
+            >
+              {/* Іконка рятувального круга або знака питання */}
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            </a>
+
+            {/* Кнопка: Вийти */}
             <form action="/auth/signout" method="post">
               <button className="flex items-center justify-center w-10 h-10 rounded-lg text-gray-400 hover:text-red-500 hover:bg-red-50 transition border border-transparent hover:border-red-100 cursor-pointer" title={t('logout')}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
