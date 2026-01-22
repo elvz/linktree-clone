@@ -3,7 +3,7 @@
 import { useLanguage } from "@/context/LanguageContext";
 import PricingForm from "@/components/PricingForm";
 import LanguageSwitcher from "@/components/LanguageSwitcher"; // Додамо перемикач і сюди!
-import { addLink, addMonobankLink, deleteLink, addBmcLink, addHeaderLink, profile } from "@/app/admin/actions"; // не забудьте імпортувати addPaypalLink
+import { addLink, addMonobankLink, addBmcLink, addHeaderLink } from "@/app/admin/actions"; // не забудьте імпортувати addPaypalLink
 import ProfileEditor from "@/components/ProfileEditor";
 import SortableLinkList from "@/components/SortableLinkList";
 
