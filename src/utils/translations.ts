@@ -105,7 +105,7 @@ export const translations = {
     loginGoogle: "Увійти через Google",
 
     bmcTitle: "Buy Me a Coffee",
-    bmcLabel: "Посилання на профілю",
+    bmcLabel: "Ваш нікнейм",
     bmcPlaceholder: "https://buymeacoffee.com/username",
     bmcBtn: "Пригостити кавою",
     bmcAction: "Підтримати творчість",
@@ -205,7 +205,7 @@ export const translations = {
     loginGoogle: "Sign in with Google",
 
     bmcTitle: "Buy Me a Coffee",
-    bmcLabel: "Profile Link",
+    bmcLabel: "Your nickname",
     bmcPlaceholder: "https://buymeacoffee.com/username",
     bmcBtn: "Buy a Coffee",
     bmcAction: "Support my work",
@@ -305,7 +305,7 @@ export const translations = {
     loginGoogle: "Mit Google anmelden",
     
     bmcTitle: "Buy Me a Coffee",
-    bmcLabel: "Profillink",
+    bmcLabel: "Dein Spitzname",
     bmcPlaceholder: "https://buymeacoffee.com/username",
     bmcBtn: "Kaffee spendieren",
     bmcAction: "Unterstütze meine Arbeit",
