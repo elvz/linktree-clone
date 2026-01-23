@@ -9,7 +9,7 @@ export const translations = {
     // --- ПРОФІЛЬ (PUBLIC) ---
     copyLink: "Скопіювати посилання",
     linkCopied: "Посилання скопійовано! ✅",
-    footer: "Linktree Clone by Elvz",
+    footer: "OwnTree by Elvz",
     monoAction: "Розбити",
     monoButton: "Поповнити",
     
@@ -72,9 +72,9 @@ export const translations = {
     // --- ГОЛОВНА СТОРІНКА (LANDING) ---
     heroTitle: "Усе, що ти є. В одному посиланні.",
     heroSubtitle: "Створи красиву сторінку для свого Instagram, TikTok та інших соцмереж. Безкоштовно. Швидко. Українською.",
-    heroButtonCreate: "Створити свій Linktree",
+    heroButtonCreate: "Створити свій OwnTree",
     heroButtonDemo: "Подивитись демо",
-    footerCopyright: "Linktree Clone. Built with Next.js & Supabase.",
+    footerCopyright: "OwnTree. Built with Next.js & Supabase.",
 
     // --- АВТОРИЗАЦІЯ (LOGIN / REGISTER) ---
     authLoginTitle: "Вхід в акаунт",
@@ -121,13 +121,18 @@ export const translations = {
     themeMidnight: "Ніч",
     themeSunset: "Захід сонця",
     themeOcean: "Океан",
+
+    betaTester: "БЕТА ТЕСТЕР",
+publicBeta: "Публічна Бета",
+betaTitle: "Усі PRO функції доступні",
+betaDesc: "Ми проводимо відкрите бета-тестування. Усі преміум-можливості (аналітика, теми, відсутність реклами) зараз безкоштовні для всіх користувачів.",
   },
   en: {
     loading: "Loading...",
     error: "Error",
     copyLink: "Copy link",
     linkCopied: "Link copied! ✅",
-    footer: "Linktree Clone by Elvz",
+    footer: "OwnTree Clone by Elvz",
     monoAction: "Tap to donate",
     monoButton: "Donate",
     
@@ -184,9 +189,9 @@ export const translations = {
     
     heroTitle: "Everything you are. In one link.",
     heroSubtitle: "Create a beautiful page for your Instagram, TikTok, and other socials. Free. Fast. Simple.",
-    heroButtonCreate: "Create your Linktree",
+    heroButtonCreate: "Create your Owntree",
     heroButtonDemo: "View Demo",
-    footerCopyright: "Linktree Clone. Built with Next.js & Supabase.",
+    footerCopyright: "OwnTree. Built with Next.js & Supabase.",
 
     authLoginTitle: "Welcome back",
     authRegisterTitle: "Create an account",
@@ -232,13 +237,18 @@ export const translations = {
     themeMidnight: "Midnight",
     themeSunset: "Sunset",
     themeOcean: "Ocean",
+
+    betaTester: "BETA TESTER",
+publicBeta: "Public Beta",
+betaTitle: "All PRO features unlocked",
+betaDesc: "We are running an open beta test. All premium features (analytics, themes, no ads) are currently free for all users.",
   },
   de: {
     loading: "Laden...",
     error: "Fehler",
     copyLink: "Link kopieren",
     linkCopied: "Link kopiert! ✅",
-    footer: "Linktree Clone von Elvz",
+    footer: "OwnTree von Elvz",
     monoAction: "Tippen zum Spenden",
     monoButton: "Spenden",
     
@@ -295,9 +305,9 @@ export const translations = {
     
     heroTitle: "Alles, was du bist. In einem Link.",
     heroSubtitle: "Erstelle eine schöne Seite für dein Instagram, TikTok und andere soziale Netzwerke. Kostenlos. Schnell. Einfach.",
-    heroButtonCreate: "Erstelle deinen Linktree",
+    heroButtonCreate: "Erstelle deinen OwnTree",
     heroButtonDemo: "Demo ansehen",
-    footerCopyright: "Linktree Clone. Erstellt mit Next.js & Supabase.",
+    footerCopyright: "OwnTree Clone. Erstellt mit Next.js & Supabase.",
 
     authLoginTitle: "Willkommen zurück",
     authRegisterTitle: "Konto erstellen",
@@ -343,5 +353,11 @@ export const translations = {
     themeMidnight: "Mitternacht",
     themeSunset: "Sonnenuntergang",
     themeOcean: "Ozean",
+
+    // ... інші переклади
+    betaTester: "BETA TESTER",
+    publicBeta: "Öffentliche Beta",
+    betaTitle: "Alle PRO-Funktionen freigeschaltet",
+    betaDesc: "Wir führen einen offenen Beta-Test durch. Alle Premium-Funktionen (Analytics, Themes, keine Werbung) sind derzeit für alle Benutzer kostenlos.",
   },
 };

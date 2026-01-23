@@ -15,7 +15,7 @@ export default function HomeContent() {
       <header className="px-6 py-4 flex justify-between items-center max-w-6xl mx-auto w-full">
         <div className="flex items-center gap-2">
            <div className="w-8 h-8 bg-black rounded-lg"></div> {/* Логотип заглушка */}
-           <span className="font-bold text-xl tracking-tight">Linktree Clone</span>
+           <span className="font-bold text-xl tracking-tight">OwnTree</span>
         </div>
         <div className="flex gap-4">
            {/* Кнопка входу прямо в шапці */}
@@ -55,7 +55,7 @@ export default function HomeContent() {
         {/* Маленька декорація (Mockup) */}
         <div className="mt-20 w-full max-w-sm h-64 bg-gray-100 rounded-t-3xl border-x-8 border-t-8 border-gray-900 shadow-2xl opacity-50 relative overflow-hidden">
              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-gray-400 font-bold">
-                YOUR LINKTREE
+                YOUR OWNTREE
              </div>
         </div>
       </main>

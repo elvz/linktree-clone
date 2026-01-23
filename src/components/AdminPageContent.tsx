@@ -2,8 +2,8 @@
 
 import { useLanguage } from "@/context/LanguageContext";
 import PricingForm from "@/components/PricingForm";
-import LanguageSwitcher from "@/components/LanguageSwitcher"; // Додамо перемикач і сюди!
-import { addLink, addMonobankLink, addBmcLink, addHeaderLink } from "@/app/admin/actions"; // не забудьте імпортувати addPaypalLink
+import LanguageSwitcher from "@/components/LanguageSwitcher"; 
+import { addLink, addMonobankLink, addBmcLink, addHeaderLink } from "@/app/admin/actions"; 
 import ProfileEditor from "@/components/ProfileEditor";
 import SortableLinkList from "@/components/SortableLinkList";
 
@@ -16,7 +16,10 @@ interface AdminContentProps {
 
 export default function AdminPageContent({ user, profile, links }: AdminContentProps) {
   const { t } = useLanguage();
-  const isPremium = profile?.is_premium;
+  
+  // 🔥 BETA MODE: Вмикаємо PRO для всіх
+  const isPremium = true; 
+  // const isPremium = profile?.is_premium; // <-- Старий код (збережено)
 
   return (
     <div className="min-h-screen bg-gray-50 p-4 md:p-8 relative">
@@ -24,167 +27,109 @@ export default function AdminPageContent({ user, profile, links }: AdminContentP
       <LanguageSwitcher />
 
           <div className="max-w-2xl mx-auto">
-              
-              {/* Банер PRO */}
-        {!isPremium && (
-          <div className="bg-gray-900 text-white p-6 rounded-xl shadow-lg mb-8 relative overflow-hidden border border-gray-800">
-            {/* Фоновий ефект */}
-            <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/20 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
-            
-            <div className="relative z-10">
-              <div className="flex items-center gap-2 mb-2">
-                 <span className="bg-yellow-400 text-black text-[10px] font-bold px-2 py-0.5 rounded">PRO ACCESS</span>
-                 <h3 className="text-xl font-bold">{t('proUnlock')}</h3>
-              </div>
-              <p className="mb-6 opacity-80 max-w-lg text-sm leading-relaxed text-gray-300">{t('proDesc')}</p>
-              
-              <div className="flex flex-col sm:flex-row gap-4">
+
+         {/* --- BETA БАНЕР (ЛОКАЛІЗОВАНО) --- */}
+             <div className="bg-gradient-to-r from-emerald-500 to-teal-600 text-white p-6 rounded-xl shadow-lg mb-8 relative overflow-hidden border border-emerald-400/50">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
                 
-                {/* ВАРІАНТ 1: УКРАЇНА (МОНО) */}
-                <a 
-                  href="https://send.monobank.ua/jar/25KUi8jATM" 
-                  target="_blank" rel="noreferrer"
-                  className="group flex items-center justify-between bg-white text-gray-900 px-4 py-3 rounded-lg hover:bg-gray-100 transition min-w-[200px]"
-                >
-                  <div className="flex flex-col items-start">
-                    <span className="text-xs text-gray-500 font-bold uppercase tracking-wider">Ukraine</span>
-                    <span className="font-bold">99 UAH</span>
+                <div className="relative z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                  <div>
+                    <div className="flex items-center gap-2 mb-2">
+                        <span className="bg-white/20 text-white text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider border border-white/20">
+                            {t('publicBeta')}
+                        </span>
+                        <h3 className="text-xl font-bold">{t('betaTitle')}</h3>
+                    </div>
+                    <p className="text-emerald-50 text-sm max-w-lg leading-relaxed">
+                      {t('betaDesc')}
+                    </p>
                   </div>
-                  <div className="w-8 h-8 bg-black text-white rounded-full flex items-center justify-center group-hover:scale-110 transition">
-                    🐈
-                  </div>
-                </a>
-
-                {/* 2. СВІТ (PAYPAL) - ОНОВЛЕНО */}
-                <a 
-                  href="https://www.paypal.com/donate/?hosted_button_id=LN7TD3ZVLQ5QC" // <-- Вставте лінк з фото (Get a link)
-                  target="_blank" rel="noreferrer"
-                  className="group flex items-center justify-between bg-[#0070BA] text-white px-4 py-3 rounded-lg hover:bg-[#003087] transition min-w-[200px]"
-                >
-                  <div className="flex flex-col items-start">
-                    <span className="text-xs text-blue-200 font-bold uppercase tracking-wider">International</span>
-                    <span className="font-bold">5 USD (PayPal)</span>
-                  </div>
-                  {/* Логотип PayPal */}
-                  <div className="w-8 h-8 bg-white/20 text-white rounded-full flex items-center justify-center group-hover:scale-110 transition italic font-bold font-serif">
-                    P
-                  </div>
-                </a>
-
-              </div>
-
-              {/* Кнопка Підтримки */}
-              <div className="mt-6 pt-4 border-t border-gray-800 flex flex-col sm:flex-row items-start sm:items-center gap-4">
-                 <p className="text-xs text-gray-500 flex-1">
-                   {t('supportNote')} <br/>
-                   <span className="opacity-50">(Send screenshot to activate)</span>
-                 </p>
-                 <a 
-                  href="https://t.me/aelvz" 
-                  target="_blank" rel="noreferrer"
-                  className="text-xs text-white font-medium hover:underline flex items-center gap-1 opacity-80 hover:opacity-100"
-                >
-                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-                  {t('supportBtn')}
-                </a>
-              </div>
-
-            </div>
-          </div>
-        )}
-        
-        {/* Шапка */}
-        <div className="bg-white rounded-xl shadow-sm p-6 flex flex-col md:flex-row justify-between items-center gap-4 border border-gray-100 mb-6">
-          <div>
-            <h1 className="text-xl font-bold text-gray-900">{t('adminTitle')}</h1>
-            <div className="flex items-center gap-2 text-gray-500 text-xs mt-1">
-              <span>{user.email}</span>
-              {isPremium && (
-                <span className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-2 py-0.5 rounded text-[10px] font-bold">PRO</span>
-              )}
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3 w-full md:w-auto">
-            {/* Кнопка: Моя сторінка */}
-            <a
-              href={`/${profile?.username}`}
-              target="_blank"
-              rel="noreferrer"
-              className="flex-1 md:flex-none flex items-center justify-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg text-sm font-medium transition border border-gray-200"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
-              <span className="hidden sm:inline">{t('myPage')}</span>
-            </a>
-
-            {/* --- НОВА КНОПКА: ПІДТРИМКА (Завжди видима) --- */}
-            <a
-              href="https://t.me/aelvz" // <-- Вставте сюди ваш нік
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center justify-center w-10 h-10 rounded-lg text-gray-400 hover:text-blue-500 hover:bg-blue-50 transition border border-transparent hover:border-blue-100"
-              title={t('supportBtn') || "Support"}
-            >
-              {/* Іконка рятувального круга або знака питання */}
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-            </a>
-
-            {/* Кнопка: Вийти */}
-            <form action="/auth/signout" method="post">
-              <button className="flex items-center justify-center w-10 h-10 rounded-lg text-gray-400 hover:text-red-500 hover:bg-red-50 transition border border-transparent hover:border-red-100 cursor-pointer" title={t('logout')}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
-              </button>
-            </form>
-          </div>
-        </div>
-
-        {/* Статистика (PRO ONLY) */}
-        <div className="grid grid-cols-2 gap-4 mb-6 relative">
-          {/* Якщо НЕ преміум — накладаємо розмиття і замок */}
-          {!isPremium && (
-            <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-white/60 backdrop-blur-[2px] rounded-xl border border-gray-100">
-               <div className="bg-black text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg mb-1">
-                 🔒 {t('proFeature')}
-               </div>
-               <p className="text-[10px] text-gray-600 font-medium">{t('proLockDesc')}</p>
-            </div>
-            )}
                   
+                  <div className="hidden sm:flex bg-white/10 w-12 h-12 rounded-full items-center justify-center text-2xl border border-white/20">
+                    🚀
+                  </div>
+                </div>
+            </div>
+              
+             {/* Шапка */}
+            <div className="bg-white rounded-xl shadow-sm p-6 flex flex-col md:flex-row justify-between items-center gap-4 border border-gray-100 mb-6">
+              <div>
+                <h1 className="text-xl font-bold text-gray-900">{t('adminTitle')}</h1>
+                <div className="flex items-center gap-2 text-gray-500 text-xs mt-1">
+                  <span>{user.email}</span>
+                  {/* BETA Badge */}
+                  <span className="bg-emerald-100 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider">
+                    BETA TESTER
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3 w-full md:w-auto">
+                {/* Кнопка: Моя сторінка */}
+                <a
+                  href={`/${profile?.username}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex-1 md:flex-none flex items-center justify-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg text-sm font-medium transition border border-gray-200"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                  <span className="hidden sm:inline">{t('myPage')}</span>
+                </a>
+
+                {/* НОВА КНОПКА: ПІДТРИМКА */}
+                <a
+                  href="https://t.me/aelvz" 
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center justify-center w-10 h-10 rounded-lg text-gray-400 hover:text-blue-500 hover:bg-blue-50 transition border border-transparent hover:border-blue-100"
+                  title={t('supportBtn') || "Support"}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                </a>
+
+                {/* Кнопка: Вийти */}
+                <form action="/auth/signout" method="post">
+                  <button className="flex items-center justify-center w-10 h-10 rounded-lg text-gray-400 hover:text-red-500 hover:bg-red-50 transition border border-transparent hover:border-red-100 cursor-pointer" title={t('logout')}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+                  </button>
+                </form>
+              </div>
+            </div>
+             
             
 
-          {/* Самі картки (візуально вони є завжди, але розмиті під оверлеєм) */}
-          <div className={`bg-white p-4 rounded-xl shadow-sm border border-gray-100 text-center transition-all ${!isPremium ? 'blur-[3px] opacity-70' : ''}`}>
-            <div className="text-gray-400 text-xs uppercase font-bold tracking-wider mb-1">{t('statsViews')}</div>
-            <div className="text-3xl font-black text-gray-900">{isPremium ? (profile?.views || 0) : '99+'}</div>
-          </div>
-          
-          <div className={`bg-white p-4 rounded-xl shadow-sm border border-gray-100 text-center transition-all ${!isPremium ? 'blur-[3px] opacity-70' : ''}`}>
-            <div className="text-gray-400 text-xs uppercase font-bold tracking-wider mb-1">{t('statsClicks')}</div>
-            <div className="text-3xl font-black text-gray-900">
-               {isPremium ? (links?.reduce((acc, link) => acc + (link.clicks || 0), 0)) : '99+'}
-            </div>
-          </div>
+            {/* Статистика (PRO unlocked) */}
+            <div className="grid grid-cols-2 gap-4 mb-6 relative">
+              <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 text-center transition-all">
+                <div className="text-gray-400 text-xs uppercase font-bold tracking-wider mb-1">{t('statsViews')}</div>
+                <div className="text-3xl font-black text-gray-900">{profile?.views || 0}</div>
               </div>
               
-              {/* --- [ТУТ] ВСТАВЛЯЄМО РЕДАКТОР ПРОФІЛЮ --- */}
-        <ProfileEditor 
-            initialName={profile?.full_name || ""}
-            initialColor={profile?.bg_color || "#f3f4f6"}
-            avatarUrl={profile?.avatar_url}
-          username={profile?.username}
-          profileTheme={profile?.theme}
-        />
-
-        
+              <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 text-center transition-all">
+                <div className="text-gray-400 text-xs uppercase font-bold tracking-wider mb-1">{t('statsClicks')}</div>
+                <div className="text-3xl font-black text-gray-900">
+                   {links?.reduce((acc, link) => acc + (link.clicks || 0), 0)}
+                </div>
+              </div>
+            </div>
+              
+            {/* РЕДАКТОР ПРОФІЛЮ */}
+            <ProfileEditor 
+                initialName={profile?.full_name || ""}
+                initialColor={profile?.bg_color || "#f3f4f6"}
+                avatarUrl={profile?.avatar_url}
+                username={profile?.username}
+                profileTheme={profile?.theme}
+            />
 
         {/* ФОРМИ ДОДАВАННЯ */}
         <div className="space-y-6 mb-8">
           
-            
             {/* 1. Звичайне посилання */}
             <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
             <h2 className="text-lg font-semibold mb-4 text-gray-800">{t('addLinkTitle')}</h2>
-            {/* --- БЛОК ДОДАВАННЯ ЗАГОЛОВКА (РОЗДІЛУ) --- */}
+            
+            {/* БЛОК ЗАГОЛОВКА */}
             <div className="bg-gray-50 rounded-xl shadow-sm p-4 border border-gray-200 border-dashed mb-6">
                 <h2 className="text-sm font-bold text-gray-500 mb-3 uppercase tracking-wider flex items-center gap-2">
                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 20h16"/><path d="M12 4v16"/></svg>
@@ -202,6 +147,7 @@ export default function AdminPageContent({ user, profile, links }: AdminContentP
                     </button>
                 </form>
             </div>
+
             <form action={addLink} className="flex flex-col md:flex-row gap-3">
                 <input name="title" placeholder={t('inputTitlePlaceholder')} required className="flex-1 p-3 border border-gray-200 rounded-lg text-sm outline-none focus:border-black transition" />
                 <input name="url" placeholder={t('inputUrlPlaceholder')} required className="flex-1 p-3 border border-gray-200 rounded-lg text-sm outline-none focus:border-black transition" />
@@ -209,8 +155,7 @@ export default function AdminPageContent({ user, profile, links }: AdminContentP
             </form>
             </div>
 
-            {/* 2. Монобанка */}
-            {isPremium ? (
+            {/* 2. Монобанка (Всі PRO) */}
             <div className="bg-gradient-to-r from-gray-50 to-white rounded-xl shadow-sm p-6 border border-gray-200 dashed-border">
                 <div className="flex items-center gap-2 mb-4">
                 <div className="w-8 h-8 bg-black rounded-full flex items-center justify-center text-white text-xs">🐈</div>
@@ -231,47 +176,9 @@ export default function AdminPageContent({ user, profile, links }: AdminContentP
                 </div>
                 </form>
             </div>
-            ) : (
-             // Заглушка (можна спростити, бо вона лише візуальна)
-             // --- GHOST MONO (КРАСИВА ЗАГЛУШКА) ---
-             <div className="relative overflow-hidden rounded-xl border border-gray-200 bg-white p-6 group">
-                 {/* Розмитий контент */}
-                 <div className="blur-[4px] opacity-60 pointer-events-none select-none grayscale-[0.5] transition-all duration-500 group-hover:blur-[2px] group-hover:scale-[1.01]">
-                    <div className="flex items-center gap-2 mb-4">
-                        <div className="w-8 h-8 bg-black rounded-full flex items-center justify-center text-white text-xs">🐈</div>
-                        <h2 className="text-lg font-semibold text-gray-800">{t('monoTitle')}</h2>
-                        <span className="bg-black text-white text-[10px] px-2 py-0.5 rounded-full ml-auto">PRO</span>
-                    </div>
-                    <div className="flex flex-col md:flex-row gap-3 items-end">
-                       <div className="w-full md:w-1/3 space-y-1">
-                          <div className="h-3 w-20 bg-gray-200 rounded"></div>
-                          <div className="h-11 w-full bg-gray-100 border border-gray-200 rounded-lg"></div>
-                       </div>
-                       <div className="w-full md:w-2/3 space-y-1">
-                          <div className="h-3 w-24 bg-gray-200 rounded"></div>
-                          <div className="flex gap-2">
-                             <div className="h-11 w-full bg-gray-100 border border-gray-200 rounded-lg"></div>
-                             <div className="h-11 w-32 bg-black rounded-lg opacity-80"></div>
-                          </div>
-                       </div>
-                    </div>
-                 </div>
-
-                 {/* Оверлей із замком */}
-                 <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-white/30 backdrop-blur-[1px]">
-                     <div className="bg-black text-white px-4 py-2 rounded-full text-xs font-bold shadow-xl flex items-center gap-2 transform transition-transform group-hover:scale-110">
-                        <span>🔒 {t('proFeature')}</span>
-                     </div>
-                     <p className="mt-2 text-[10px] font-bold text-gray-500 uppercase tracking-wide">{t('proLockDesc')}</p>
-                 </div>
-             </div>
-            
-          )}
           
-          {/* 3. Buy Me a Coffee Widget (PRO) */}
-            {isPremium ? (
+            {/* 3. Buy Me a Coffee Widget (PRO) */}
             <div className="bg-[#FFDD00] text-gray-900 rounded-xl shadow-sm p-6 border border-yellow-400 relative overflow-hidden">
-                {/* Лого чашки на фоні */}
                 <div className="absolute -right-2 -bottom-4 opacity-20 rotate-12">
                    <svg className="w-32 h-32" viewBox="0 0 24 24" fill="currentColor"><path d="M20.216 6.415l-.132-.666c-.119-.596-.387-1.143-.773-1.618a4.99 4.99 0 0 0-3.355-1.92l-1.09-.15-7.795-1.066L4.99 7.02l8.834 1.208c.596.082 1.134.33 1.58.705.466.393.81.902.99 1.472l.142.45c.446-.035.886-.145 1.305-.33a3.535 3.535 0 0 0 2.375-4.11zm-1.127 5.688c0 1.938-1.578 3.516-3.516 3.516H7.102c-1.938 0-3.516-1.578-3.516-3.516V8.203h12.016v3.9zM22.07 5.56c-.347-1.39-1.22-2.58-2.46-3.376a7.276 7.276 0 0 0-4.757-.96L6.56.12A2.43 2.43 0 0 0 3.79 2.14L2 15.62c0 2.85 2.316 5.165 5.164 5.165h8.28c2.85 0 5.165-2.316 5.165-5.165v-2.36c1.64-.176 3.06-1.21 3.73-2.715.39-1.38.15-2.85-.59-4.05-.28-.46-.64-.86-1.08-1.19z"/></svg>
                 </div>
@@ -298,73 +205,19 @@ export default function AdminPageContent({ user, profile, links }: AdminContentP
                 </div>
                 </form>
             </div>
-            ) : (
-             <div className="relative overflow-hidden rounded-xl border border-yellow-400 bg-[#FFDD00] p-6 group">
-                 <div className="blur-[4px] opacity-50 pointer-events-none select-none transition-all duration-500 group-hover:blur-[2px] group-hover:scale-[1.01]">
-                    <div className="flex items-center gap-2 mb-4">
-                       <div className="w-8 h-8 bg-black/10 rounded-full flex items-center justify-center text-gray-900 font-bold text-lg">☕</div>
-                       <h2 className="text-lg font-bold">{t('bmcTitle')}</h2>
-                       <span className="bg-black text-white text-[10px] px-2 py-0.5 rounded-full ml-auto font-bold">PRO</span>
-                    </div>
-                    <div className="flex flex-col md:flex-row gap-3 items-end">
-                        <div className="w-1/3 h-11 bg-white/40 rounded-lg border border-yellow-500/20"></div>
-                        <div className="w-2/3 flex gap-2">
-                            <div className="w-full h-11 bg-white/40 rounded-lg border border-yellow-500/20"></div>
-                            <div className="w-32 h-11 bg-gray-900 rounded-lg opacity-80"></div>
-                        </div>
-                    </div>
-                 </div>
 
-                 {/* Оверлей */}
-                 <div className="absolute inset-0 z-10 flex flex-col items-center justify-center">
-                     <div className="bg-gray-900 text-white px-4 py-2 rounded-full text-xs font-bold shadow-xl flex items-center gap-2 transform transition-transform group-hover:scale-110">
-                        <span>🔒 {t('proFeature')}</span>
-                     </div>
-                 </div>
-             </div>
-            )}
-
-            {/* 3. Прайс (Компонент) */}
-            {isPremium ? (
-               <PricingForm userId={user.id} />
-            ) : (
-                <div className="relative overflow-hidden rounded-xl border border-gray-200 border-l-4 border-l-blue-200 bg-white p-6 group">
-                 <div className="blur-[4px] opacity-50 pointer-events-none select-none grayscale-[0.5] transition-all duration-500 group-hover:blur-[2px]">
-                    <div className="flex items-center gap-2 mb-4">
-                        <h2 className="text-lg font-semibold text-gray-800">{t('priceTitle')}</h2>
-                        <span className="bg-blue-100 text-blue-700 text-[10px] px-2 py-0.5 rounded-full font-bold">PRO</span>
-                    </div>
-                    <div className="space-y-4">
-                        <div className="h-11 w-full bg-gray-50 border border-gray-100 rounded-lg"></div>
-                        <div className="flex gap-2">
-                            <div className="h-10 flex-[2] bg-gray-50 border border-gray-100 rounded-lg"></div>
-                            <div className="h-10 flex-1 bg-gray-50 border border-gray-100 rounded-lg"></div>
-                        </div>
-                        <div className="flex gap-2 opacity-50">
-                            <div className="h-10 flex-[2] bg-gray-50 border border-gray-100 rounded-lg"></div>
-                            <div className="h-10 flex-1 bg-gray-50 border border-gray-100 rounded-lg"></div>
-                        </div>
-                    </div>
-                 </div>
-
-                 <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-white/40 backdrop-blur-[1px]">
-                     <div className="bg-blue-600 text-white px-4 py-2 rounded-full text-xs font-bold shadow-xl flex items-center gap-2 transform transition-transform group-hover:scale-110">
-                        <span>🔒 {t('proFeature')}</span>
-                     </div>
-                 </div>
-             </div>
-            )}
+            {/* 3. Прайс (Всі PRO) */}
+            <PricingForm userId={user.id} />
         </div>
 
         {/* Список лінків */}
         <div className="space-y-3">
-          {/* Список лінків (Draggable) */}
-        <div className="mt-8">
-           <SortableLinkList 
-              initialLinks={links} 
-              isPremium={!!isPremium} // !! перетворює на boolean
-           />
-        </div>
+          <div className="mt-8">
+             <SortableLinkList 
+                initialLinks={links} 
+                isPremium={true} // ЗАВЖДИ TRUE
+             />
+          </div>
 
           {links?.length === 0 && (
             <p className="text-center text-gray-400 py-10">{t('emptyLinks')}</p>
