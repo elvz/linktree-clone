@@ -5,7 +5,7 @@ import { Metadata, ResolvingMetadata } from "next";
 
 export const dynamic = "force-dynamic";
 
-await supabase.rpc('increment_views', { p_username: username });
+// await supabase.rpc('increment_views', { p_username: username });
 
 // Тип для параметрів сторінки
 type Props = {
