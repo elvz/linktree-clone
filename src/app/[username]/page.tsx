@@ -3,6 +3,10 @@ import { createClient } from "@/utils/supabase/client";
 import ProfilePageContent from "@/components/ProfilePageContent";
 import { Metadata, ResolvingMetadata } from "next";
 
+export const dynamic = "force-dynamic";
+
+await supabase.rpc('increment_views', { p_username: username });
+
 // Тип для параметрів сторінки
 type Props = {
   params: Promise<{ username: string }>;
@@ -87,7 +91,7 @@ export default async function UserProfile({ params }: Props) {
      profile.links.sort((a: any, b: any) => (a.display_order || 0) - (b.display_order || 0));
   }
 
-  await supabase.rpc('increment_views', { p_username: username });
+  
 
   // Просто передаємо дані у клієнтський компонент
   return <ProfilePageContent user={profile as any} />;
