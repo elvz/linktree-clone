@@ -95,21 +95,34 @@ export default function ProfileEditor({ initialName, initialColor, avatarUrl, us
                 />
             </div>
 
-            {/* Нікнейм (URL) */}
+                  {/* Нікнейм */}
             <div>
                 <label className="text-sm text-gray-600 font-medium mb-1 block">{t('nickName')} (URL)</label>
                 <div className="flex rounded-lg border border-gray-200 overflow-hidden focus-within:border-black focus-within:ring-1 focus-within:ring-black transition">
-                    <div className="bg-gray-50 px-3 py-3 text-sm text-gray-500 border-r border-gray-200 select-none">
-                        https://sitename.com/
+                    <div className="bg-gray-50 px-3 py-3 text-sm text-gray-500 border-r border-gray-200 select-none flex items-center">
+                        owntree.me/
                     </div>
                     <input 
                         name="username"
                         defaultValue={username}
-                        placeholder="username"
-                        className="flex-1 p-3 text-sm outline-none bg-white"
+                        placeholder="your-name"
+                        // Додаємо pattern, щоб браузер теж лаявся, якщо щось не так
+                        pattern="[a-z0-9-_]+"
+                        title="Тільки латинські літери, цифри, дефіс та підкреслення"
+                        required
+                        className="flex-1 p-3 text-sm outline-none bg-white placeholder-gray-300"
+                        // Можна додати авто-форматування при вводі (опціонально)
+                        onChange={(e) => {
+                           // Замінюємо пробіли та спецсимволи на льоту
+                           e.target.value = e.target.value.toLowerCase().replace(/[^a-z0-9-_]/g, "");
+                        }}
                     />
                 </div>
+                <p className="text-[10px] text-gray-400 mt-1 ml-1">
+                    * Тільки латиниця, цифри та символи - _
+                </p>
             </div>
+            
 
             {/* Колір фону */}
             <div>

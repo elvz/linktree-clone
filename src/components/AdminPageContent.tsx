@@ -142,7 +142,7 @@ export default function AdminPageContent({ user, profile, links }: AdminContentP
                         required 
                         className="flex-1 p-2 border border-gray-300 rounded-lg text-sm outline-none focus:border-black transition" 
                     />
-                    <button className="bg-gray-200 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-300 text-sm font-bold transition whitespace-nowrap">
+                    <button className="bg-gray-200 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-300 text-sm font-bold transition whitespace-nowrap cursor-pointer">
                         {t('headerAddBtn')}
                     </button>
                 </form>

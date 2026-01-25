@@ -38,27 +38,59 @@ export async function deleteLink(formData: FormData) {
 
 // ... imports
 
+// ... imports
+
 export async function updateProfile(formData: FormData) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
-  if (!user) return;
+  if (!user) return { error: "Not authenticated" };
 
   const fullName = formData.get('fullName') as string
-  const username = formData.get('username') as string
+  let username = formData.get('username') as string
   const bgColor = formData.get('bgColor') as string
-  // 👇 Отримуємо тему
-  const theme = formData.get('theme') as string 
+  const theme = formData.get('theme') as string
   
-  const file = formData.get('avatar') as File
+  // 1. САНІТИЗАЦІЯ НІКНЕЙМУ (Чистка)
+  // Перетворюємо на малі літери, прибираємо пробіли, лишаємо тільки букви, цифри, дефіс і підкреслення.
+  // Наприклад: "Vasya Pupkin!" -> "vasya-pupkin"
+  username = username
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, '-')     // пробіли на дефіси
+    .replace(/[^a-z0-9-_]/g, ''); // видаляємо все зайве
 
+  if (username.length < 3) {
+      // Тут можна повернути помилку, якщо нік надто короткий
+      console.error("Username too short");
+      return; 
+  }
+
+  // 2. ПЕРЕВІРКА НА УНІКАЛЬНІСТЬ
+  // Шукаємо, чи є такий нікнейм у КОГОСЬ ІНШОГО (не у мене)
+  const { data: existingUser } = await supabase
+    .from('profiles')
+    .select('id')
+    .eq('username', username)
+    .neq('id', user.id) // Виключаємо себе з пошуку
+    .single();
+
+  if (existingUser) {
+    // Якщо такий юзер вже є — зупиняємось і нічого не зберігаємо!
+    console.error("Username is taken!");
+    // В ідеалі тут треба повернути помилку на фронтенд (див. далі)
+    return; 
+  }
+
+  // ... (Ваш код завантаження аватара залишається без змін) ...
+  const file = formData.get('avatar') as File
   let avatarUrl = null;
-  // ... (ваш код завантаження аватара без змін) ...
+  // ... (код upload) ...
 
   const updateData: any = {
     full_name: fullName,
-    username: username,
+    username: username, // Зберігаємо вже "чистий" нікнейм
     bg_color: bgColor,
-    theme: theme, // 👈 Додаємо тему в об'єкт
+    theme: theme,
     updated_at: new Date().toISOString(),
   }
 
@@ -66,13 +98,17 @@ export async function updateProfile(formData: FormData) {
     updateData.avatar_url = avatarUrl
   }
 
-  await supabase
+  const { error } = await supabase
     .from('profiles')
     .update(updateData)
     .eq('id', user.id)
 
-  revalidatePath('/admin')
-  revalidatePath(`/${username}`)
+  if (error) {
+      console.error("Update error:", error);
+  } else {
+      revalidatePath('/admin')
+      revalidatePath(`/${username}`) // Оновлюємо кеш вже нової сторінки
+  }
 }
 
 export async function addMonobankLink(formData: FormData) {

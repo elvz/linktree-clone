@@ -307,7 +307,7 @@ betaDesc: "We are running an open beta test. All premium features (analytics, th
     heroSubtitle: "Erstelle eine schöne Seite für dein Instagram, TikTok und andere soziale Netzwerke. Kostenlos. Schnell. Einfach.",
     heroButtonCreate: "Erstelle deinen OwnTree",
     heroButtonDemo: "Demo ansehen",
-    footerCopyright: "OwnTree Clone. Erstellt mit Next.js & Supabase.",
+    footerCopyright: "OwnTree. Erstellt mit Next.js & Supabase.",
 
     authLoginTitle: "Willkommen zurück",
     authRegisterTitle: "Konto erstellen",

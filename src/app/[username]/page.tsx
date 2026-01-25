@@ -87,6 +87,8 @@ export default async function UserProfile({ params }: Props) {
      profile.links.sort((a: any, b: any) => (a.display_order || 0) - (b.display_order || 0));
   }
 
+  await supabase.rpc('increment_views', { p_username: username });
+
   // Просто передаємо дані у клієнтський компонент
   return <ProfilePageContent user={profile as any} />;
 }
