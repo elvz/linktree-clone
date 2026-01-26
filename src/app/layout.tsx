@@ -7,9 +7,28 @@ import { LanguageProvider } from "@/context/LanguageContext";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Owntree",
-  description: "Your links in one place",
+  title: {
+    default: "Owntree | Єдине посилання для всього",
+    template: "%s | Owntree" // Це додаватиметься до назв профілів (напр. "Alex | Owntree")
+  },
+  description: "Створи красиве дерево посилань безкоштовно. Аналог Linktree, але без підписок. Український продукт.",
+  keywords: ["linktree", "bio link", "owntree", "посилання в біо", "link in bio", "безкоштовно"],
+  openGraph: {
+    title: "Owntree - Твоє посилання в біо",
+    description: "Створи свій сайт-візитку за 1 хвилину.",
+    url: "https://owntree.me",
+    siteName: "Owntree",
+    locale: "uk_UA",
+    type: "website",
+  },
+  icons: {
+    icon: "/favicon.ico", // Переконайтеся, що у вас є іконка в папці public
+  },
+  verification: {
+    google: 'liLwYmwpvniVHZSgkiNkKjT3PitN68kRGJaIRgKN4UM', // Тільки набір букв і цифр, без тегу <meta>
+  },
 };
+
 
 export default function RootLayout({
   children,
