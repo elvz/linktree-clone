@@ -37,23 +37,29 @@ export default function LandingPage() {
 
   return (
       <div className="w-full bg-white">
-          <LanguageSwitcher />
-
+<LanguageSwitcher />
       {/* Header / Nav */}
       <header className="px-6 py-4 flex justify-between items-center max-w-6xl mx-auto w-full">
-        <Link href="" className="flex items-center gap-2">
+        <Link href="/" className="flex items-center gap-2">
            <div className="w-8 h-8 bg-black rounded-lg"></div> {/* Логотип заглушка */}
            <span className="font-bold text-xl tracking-tight">OwnTree</span>
         </Link>
-        <div className="flex gap-4">
-           {/* Кнопка входу прямо в шапці */}
-           <Link href="/login" className="text-sm font-medium hover:text-gray-600 px-3 py-2">
-             {t('tabLogin')}
-           </Link>
-           <Link href="/login" className="text-sm font-medium bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-full transition">
-             {t('tabRegister')}
-           </Link>
-        </div>
+        {/* hidden = приховано за замовчуванням (на мобільних)
+   md:flex = показується як flex на екранах ширше 768px (планшети і ПК)
+*/}
+<div className="hidden md:flex gap-4"> 
+  
+  {/* Кнопка входу */}
+  <Link href="/login" className="text-sm font-medium hover:text-gray-600 px-3 py-2">
+    {t('tabLogin')}
+  </Link>
+
+  {/* Кнопка реєстрації */}
+  <Link href="/login" className="text-sm font-medium bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-full transition">
+    {t('tabRegister')}
+  </Link>
+
+</div>
       </header>
       
       {/* 1. HERO SECTION */}

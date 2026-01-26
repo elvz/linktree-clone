@@ -7,6 +7,7 @@ import { useLanguage } from "@/context/LanguageContext";
 import GoogleButton from "./GoogleButton"; // Ваша кнопка Google
 import LanguageSwitcher from "@/components/LanguageSwitcher"; // Перемикач мов
 import Link from "next/link";
+import Header from "@/components/Header";
 
 export default function LoginPage() {
   const { t } = useLanguage();
@@ -71,8 +72,7 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4 relative">
-      {/* Перемикач мов у кутку */}
-      <LanguageSwitcher />
+      <Header />
       
       
 
