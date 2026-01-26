@@ -70,7 +70,7 @@ export const translations = {
     bgColor: "Обрати колір тла",
     
     // --- ГОЛОВНА СТОРІНКА (LANDING) ---
-    heroTitle: "Усе, що ти є. В одному посиланні.",
+    heroTitle: "Єдине посилання для всього,",
     heroSubtitle: "Створи красиву сторінку для свого Instagram, TikTok та інших соцмереж. Безкоштовно. Швидко. Українською.",
     heroButtonCreate: "Створити свій OwnTree",
     heroButtonDemo: "Подивитись демо",
@@ -123,9 +123,37 @@ export const translations = {
     themeOcean: "Океан",
 
     betaTester: "БЕТА ТЕСТЕР",
-publicBeta: "Публічна Бета",
-betaTitle: "Усі PRO функції доступні",
-betaDesc: "Ми проводимо відкрите бета-тестування. Усі преміум-можливості (аналітика, теми, відсутність реклами) зараз безкоштовні для всіх користувачів.",
+    publicBeta: "Публічна Бета",
+    betaTitle: "Усі PRO функції доступні",
+    betaDesc: "Ми проводимо відкрите бета-тестування. Усі преміум-можливості (аналітика, теми, відсутність реклами) зараз безкоштовні для всіх користувачів.",
+
+    bioTitle: "Біо",
+    bioPlaceholder: "Напишіть пару слів про себе...",
+
+    nickTerm: "* Тільки латиниця, цифри та символи - _",
+
+    // ЛЕНДІНГ: ГЕРОЙ
+    
+    heroTitleSpan: "що ти робиш",
+    
+    heroBtn: "Створити своє owntree",
+    
+    // ЛЕНДІНГ: ПЕРЕВАГИ
+    feat1Title: "Повна кастомізація",
+    feat1Desc: "Змінюй кольори, теми та фон. Ніяких обмежень на дизайн.",
+    feat2Title: "Розумні посилання",
+    feat2Desc: "Автоматичне розпізнавання YouTube, Instagram, TikTok з красивими іконками.",
+    feat3Title: "Аналітика",
+    feat3Desc: "Слідкуй за переглядами та кліками безкоштовно.",
+    
+    // ЛЕНДІНГ: FAQ
+    faqTitle: "Часті запитання",
+    faq1Q: "Це справді безкоштовно?",
+    faq1A: "Так! Проєкт створено як Open Source ініціативу. Всі функції, які інші продають за $10, тут безкоштовні.",
+    faq2Q: "Чи можу я змінити нікнейм?",
+    faq2A: "Звичайно. Ви можете редагувати свій профіль, нікнейм та URL у будь-який момент в адмін-панелі.",
+    faq3Q: "Як додати свій домен?",
+    faq3A: "Ця функція в розробці. Поки що ви отримуєте красиве посилання owntree.me/ваше_ім'я.",
   },
   en: {
     loading: "Loading...",
@@ -187,7 +215,7 @@ betaDesc: "Ми проводимо відкрите бета-тестуванн�
     nickName: "Name",
     bgColor: "Choose background color",
     
-    heroTitle: "Everything you are. In one link.",
+    heroTitle: "One link for everything",
     heroSubtitle: "Create a beautiful page for your Instagram, TikTok, and other socials. Free. Fast. Simple.",
     heroButtonCreate: "Create your Owntree",
     heroButtonDemo: "View Demo",
@@ -239,9 +267,37 @@ betaDesc: "Ми проводимо відкрите бета-тестуванн�
     themeOcean: "Ocean",
 
     betaTester: "BETA TESTER",
-publicBeta: "Public Beta",
-betaTitle: "All PRO features unlocked",
-betaDesc: "We are running an open beta test. All premium features (analytics, themes, no ads) are currently free for all users.",
+    publicBeta: "Public Beta",
+    betaTitle: "All PRO features unlocked",
+    betaDesc: "We are running an open beta test. All premium features (analytics, themes, no ads) are currently free for all users.",
+
+    bioTitle: "Bio",
+    bioPlaceholder: "Write a few words about yourself...",
+
+    nickTerm: "* Only Latin letters, numbers and symbols - _",
+
+    // LANDING: HERO
+    
+    heroTitleSpan: "you create",
+    
+    heroBtn: "Create your owntree",
+
+    // LANDING: FEATURES
+    feat1Title: "Fully Customizable",
+    feat1Desc: "Change colors, themes, and backgrounds. No design limits.",
+    feat2Title: "Smart Links",
+    feat2Desc: "Auto-detects YouTube, Instagram, TikTok with beautiful icons.",
+    feat3Title: "Analytics",
+    feat3Desc: "Track views and clicks for free.",
+
+    // LANDING: FAQ
+    faqTitle: "Frequently Asked Questions",
+    faq1Q: "Is it really free?",
+    faq1A: "Yes! This project is Open Source. Features that others charge $10 for are free here.",
+    faq2Q: "Can I change my username?",
+    faq2A: "Sure. You can edit your profile, username, and URL anytime in the admin panel.",
+    faq3Q: "Can I use my own domain?",
+    faq3A: "This feature is in development. For now, you get a beautiful owntree.me/yourname link.",
   },
   de: {
     loading: "Laden...",
@@ -303,7 +359,7 @@ betaDesc: "We are running an open beta test. All premium features (analytics, th
     nickName: "Name",
     bgColor: "Hintergrundfarbe auswählen",
     
-    heroTitle: "Alles, was du bist. In einem Link.",
+    heroTitle: "Ein Link für alles,",
     heroSubtitle: "Erstelle eine schöne Seite für dein Instagram, TikTok und andere soziale Netzwerke. Kostenlos. Schnell. Einfach.",
     heroButtonCreate: "Erstelle deinen OwnTree",
     heroButtonDemo: "Demo ansehen",
@@ -359,5 +415,30 @@ betaDesc: "We are running an open beta test. All premium features (analytics, th
     publicBeta: "Öffentliche Beta",
     betaTitle: "Alle PRO-Funktionen freigeschaltet",
     betaDesc: "Wir führen einen offenen Beta-Test durch. Alle Premium-Funktionen (Analytics, Themes, keine Werbung) sind derzeit für alle Benutzer kostenlos.",
+
+    bioTitle: "Bio",
+    bioPlaceholder: "Schreiben Sie ein paar Worte über sich selbst...",
+
+    nickTerm: "* Nur lateinische Buchstaben, Zahlen und Symbole - _",
+
+    
+    heroTitleSpan: "was du machst",
+    heroBtn: "Erstelle dein Owntree",
+
+    feat1Title: "Volle Anpassung",
+    feat1Desc: "Ändere Farben, Themen und Hintergründe. Keine Design-Limits.",
+    feat2Title: "Smarte Links",
+    feat2Desc: "Automatische Erkennung von YouTube, Instagram, TikTok mit passenden Icons.",
+    feat3Title: "Analytik",
+    feat3Desc: "Verfolge Aufrufe und Klicks kostenlos.",
+
+    faqTitle: "Häufig gestellte Fragen",
+    faq1Q: "Ist es wirklich kostenlos?",
+    faq1A: "Ja! Das Projekt ist Open Source. Funktionen, die andere für 10$ verkaufen, sind hier gratis.",
+    faq2Q: "Kann ich meinen Benutzernamen ändern?",
+    faq2A: "Natürlich. Du kannst dein Profil, Benutzernamen und URL jederzeit im Admin-Bereich ändern.",
+    faq3Q: "Kann ich meine eigene Domain nutzen?",
+    faq3A: "Diese Funktion ist in Entwicklung. Vorerst bekommst du einen schönen owntree.me/deinname Link.",
+  
   },
 };

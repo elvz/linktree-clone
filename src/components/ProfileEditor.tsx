@@ -5,14 +5,15 @@ import { updateProfile } from "@/app/admin/actions";
 import { useState, useRef } from "react";
 
 interface ProfileEditorProps {
-  initialName: string;
+    initialName: string;
+    initialBio?: string; // <--- Додано
   initialColor: string;
   avatarUrl: string | null;
     username: string;
     profileTheme?: string;
 }
 
-export default function ProfileEditor({ initialName, initialColor, avatarUrl, username, profileTheme }: ProfileEditorProps) {
+export default function ProfileEditor({ initialName, initialBio, initialColor, avatarUrl, username, profileTheme }: ProfileEditorProps) {
   const { t } = useLanguage();
   
   // Стан для прев'ю аватарки (щоб показати нову картинку до збереження)
@@ -93,6 +94,18 @@ export default function ProfileEditor({ initialName, initialColor, avatarUrl, us
                     placeholder={t('placeholderName')}
                     className="w-full p-3 border border-gray-200 rounded-lg text-sm outline-none focus:border-black focus:ring-1 focus:ring-black transition"
                 />
+                  </div>
+                  
+                  {/* 👇 БІОГРАФІЯ (ВСТАВИТИ ТУТ, ПІД ІМЕНЕМ) 👇 */}
+            <div>
+                <label className="text-sm text-gray-600 font-medium mb-1 block">{t('bioTitle')}</label>
+                <textarea 
+                    name="bio"
+                    defaultValue={initialBio}
+                    placeholder={t('bioPlaceholder')}
+                    rows={3}
+                    className="w-full p-3 border border-gray-200 rounded-lg text-sm outline-none focus:border-black transition resize-none"
+                />
             </div>
 
                   {/* Нікнейм */}
@@ -119,7 +132,7 @@ export default function ProfileEditor({ initialName, initialColor, avatarUrl, us
                     />
                 </div>
                 <p className="text-[10px] text-gray-400 mt-1 ml-1">
-                    * Тільки латиниця, цифри та символи - _
+                    {t('nickTerm')}
                 </p>
             </div>
             

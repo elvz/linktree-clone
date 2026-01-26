@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useLanguage } from "@/context/LanguageContext";
 import GoogleButton from "./GoogleButton"; // Ваша кнопка Google
 import LanguageSwitcher from "@/components/LanguageSwitcher"; // Перемикач мов
+import Link from "next/link";
 
 export default function LoginPage() {
   const { t } = useLanguage();
@@ -72,6 +73,10 @@ export default function LoginPage() {
     <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4 relative">
       {/* Перемикач мов у кутку */}
       <LanguageSwitcher />
+      
+      
+
+      
 
       <div className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md border border-gray-100">
         

@@ -7,7 +7,7 @@ import { LanguageProvider } from "@/context/LanguageContext";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Linktree Clone",
+  title: "Owntree",
   description: "Your links in one place",
 };
 

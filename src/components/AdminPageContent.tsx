@@ -115,7 +115,8 @@ export default function AdminPageContent({ user, profile, links }: AdminContentP
               
             {/* РЕДАКТОР ПРОФІЛЮ */}
             <ProfileEditor 
-                initialName={profile?.full_name || ""}
+          initialName={profile?.full_name || ""}
+          initialBio={profile?.bio || ""} // <--- Ось тут
                 initialColor={profile?.bg_color || "#f3f4f6"}
                 avatarUrl={profile?.avatar_url}
                 username={profile?.username}

@@ -49,6 +49,7 @@ export async function updateProfile(formData: FormData) {
   let username = formData.get('username') as string
   const bgColor = formData.get('bgColor') as string
   const theme = formData.get('theme') as string
+  const bio = formData.get('bio') as string // <--- 1. ДОДАЄМО ЦЕ
   
   // 1. САНІТИЗАЦІЯ НІКНЕЙМУ (Чистка)
   // Перетворюємо на малі літери, прибираємо пробіли, лишаємо тільки букви, цифри, дефіс і підкреслення.
@@ -91,6 +92,7 @@ export async function updateProfile(formData: FormData) {
     username: username, // Зберігаємо вже "чистий" нікнейм
     bg_color: bgColor,
     theme: theme,
+    bio: bio, // <--- 2. ДОДАЄМО В ОБ'ЄКТ ДЛЯ ЗАПИСУ
     updated_at: new Date().toISOString(),
   }
 

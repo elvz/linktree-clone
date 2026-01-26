@@ -145,6 +145,13 @@ export default function ProfilePageContent({ user }: ProfilePageProps) {
 
         {/* Ім'я та Нікнейм */}
         <h1 className="text-xl font-bold mb-1 text-center drop-shadow-sm">{user.full_name}</h1>
+
+        {/* 👇 БІОГРАФІЯ (ДОДАЄМО ЦЕЙ БЛОК) 👇 */}
+        {user.bio && (
+          <p className="text-sm text-center opacity-90 mb-4 max-w-xs whitespace-pre-wrap leading-relaxed">
+            {user.bio}
+          </p>
+        )}
         
         {/* Клікабельний нікнейм з іконкою (ВІДНОВЛЕНО!) */}
         <CopyLink username={user.username} />
