@@ -127,7 +127,7 @@ export default function ProfileEditor({ initialName, initialBio, initialColor, a
                         // Можна додати авто-форматування при вводі (опціонально)
                         onChange={(e) => {
                            // Замінюємо пробіли та спецсимволи на льоту
-                           e.target.value = e.target.value.toLowerCase().replace(/[^a-z0-9-_]/g, "");
+                           e.target.value = e.target.value.toLowerCase();
                         }}
                     />
                 </div>
