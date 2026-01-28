@@ -57,8 +57,11 @@ export async function updateProfile(formData: FormData) {
   username = username
     .toLowerCase()
     .trim()
-    .replace(/\s+/g, '-')     // пробіли на дефіси
-    .replace(/[^a-z0-9-_]/g, ''); // видаляємо все зайве
+    .replace(/\s+/g, '-')          // Пробіли змінюємо на дефіси
+    .replace(/[^a-z0-9-._]/g, '')  // <--- ЗМІНА ТУТ: додали крапку (._)
+    .replace(/\.+/g, '.')          // Замінюємо повторні крапки (user..name -> user.name)
+    .replace(/-+/g, '-')           // Замінюємо повторні дефіси
+    .replace(/^[\-.]+|[\-.]+$/g, ''); // Видаляємо крапки та дефіси на початку і в кінці
 
   if (username.length < 3) {
       // Тут можна повернути помилку, якщо нік надто короткий
