@@ -218,3 +218,32 @@ export async function updateLinksOrder(items: { id: string; display_order: numbe
 }
 // ... інші імпорти ...
 
+// ... (ваші попередні імпорти)
+
+export async function updateLink(linkId: string, title: string, url: string) {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+
+  if (!user) return { error: "Not authenticated" }
+
+  // Оновлюємо посилання
+  const { error } = await supabase
+    .from('links')
+    .update({ 
+      title: title,
+      url: url,
+      // updated_at: new Date().toISOString() // Можна оновити дату, якщо треба
+    })
+    .eq('id', linkId)
+    .eq('user_id', user.id) // Важливо: перевіряємо, що це лінк саме цього юзера
+
+  if (error) {
+    console.error("Error updating link:", error)
+    return { error: "Не вдалося оновити посилання" }
+  }
+
+  revalidatePath('/admin')
+  revalidatePath('/[username]') // Оновлюємо кеш профілю
+  return { success: true }
+}
+
