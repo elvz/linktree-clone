@@ -43,12 +43,6 @@ export default function UpdatePassword() {
           {t('savePass')}
         </button>
           </form>
-          <Link 
-  href="/login" 
-  className="mt-4 text-sm text-center text-gray-500 hover:text-black flex items-center justify-center gap-1 transition"
->
-  ← {t('backToLogin')}
-</Link>
     </div>
   );
 }
