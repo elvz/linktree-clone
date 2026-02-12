@@ -2,8 +2,10 @@
 import { useState } from "react";
 import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function UpdatePassword() {
+    const { t } = useLanguage();
   const [password, setPassword] = useState("");
   const router = useRouter();
 
@@ -30,7 +32,7 @@ export default function UpdatePassword() {
         <h1 className="text-2xl font-bold text-center">Новий пароль</h1>
         <input
           type="password"
-          placeholder="Введіть новий пароль"
+          placeholder={t('newPassPH')}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
@@ -38,9 +40,15 @@ export default function UpdatePassword() {
           className="border p-2 rounded"
         />
         <button type="submit" className="bg-green-600 text-white p-2 rounded">
-          Зберегти пароль
+          {t('savePass')}
         </button>
-      </form>
+          </form>
+          <Link 
+  href="/login" 
+  className="mt-4 text-sm text-center text-gray-500 hover:text-black flex items-center justify-center gap-1 transition"
+>
+  ← {t('backToLogin')}
+</Link>
     </div>
   );
 }

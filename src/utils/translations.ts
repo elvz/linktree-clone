@@ -159,6 +159,9 @@ export const translations = {
     backToLogin: "Повернутися до входу",
     resetTitle: "Відновлення паролю",
     sendLink: "Надіслати посилання",
+
+    savePass: "Зберегти пароль",
+    newPassPH: "Введіть новий пароль",
   },
   en: {
     loading: "Loading...",
@@ -308,6 +311,9 @@ export const translations = {
     backToLogin: "Back to login",
     resetTitle: "Reset Password",
     sendLink: "Send Link",
+
+    savePass: "Save password",
+newPassPH: "Enter new password",
   },
   de: {
     loading: "Laden...",
@@ -454,5 +460,8 @@ export const translations = {
     backToLogin: "Zurück zum Login",
     resetTitle: "Passwort zurücksetzen",
     sendLink: "Link senden",
+
+    savePass: "Passwort speichern",
+newPassPH: "Neues Passwort eingeben",
   },
 };
