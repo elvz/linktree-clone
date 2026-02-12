@@ -148,6 +148,16 @@ export default function LoginPage() {
             />
           </div>
 
+          {/* 👇 ДОДАЄМО ТУТ 👇 */}
+<div className="flex justify-end mt-1 mb-4">
+  <Link 
+    href="/forgot-password" 
+    className="text-xs font-medium text-gray-500 hover:text-black transition-colors"
+  >
+    {t('forgotPass')}
+  </Link>
+</div>
+
           <button
             disabled={loading}
             className="w-full bg-gray-900 text-white font-bold py-3 rounded-lg hover:bg-black transition disabled:opacity-70 flex justify-center"

@@ -154,6 +154,11 @@ export const translations = {
     faq2A: "Звичайно. Ви можете редагувати свій профіль, нікнейм та URL у будь-який момент в адмін-панелі.",
     faq3Q: "Як додати свій домен?",
     faq3A: "Ця функція в розробці. Поки що ви отримуєте красиве посилання owntree.me/ваше_ім'я.",
+
+    forgotPass: "Забули пароль?",
+    backToLogin: "Повернутися до входу",
+    resetTitle: "Відновлення паролю",
+    sendLink: "Надіслати посилання",
   },
   en: {
     loading: "Loading...",
@@ -298,6 +303,11 @@ export const translations = {
     faq2A: "Sure. You can edit your profile, username, and URL anytime in the admin panel.",
     faq3Q: "Can I use my own domain?",
     faq3A: "This feature is in development. For now, you get a beautiful owntree.me/yourname link.",
+
+    forgotPass: "Forgot password?",
+    backToLogin: "Back to login",
+    resetTitle: "Reset Password",
+    sendLink: "Send Link",
   },
   de: {
     loading: "Laden...",
@@ -440,5 +450,9 @@ export const translations = {
     faq3Q: "Kann ich meine eigene Domain nutzen?",
     faq3A: "Diese Funktion ist in Entwicklung. Vorerst bekommst du einen schönen owntree.me/deinname Link.",
   
+    forgotPass: "Passwort vergessen?",
+    backToLogin: "Zurück zum Login",
+    resetTitle: "Passwort zurücksetzen",
+    sendLink: "Link senden",
   },
 };
