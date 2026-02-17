@@ -49,56 +49,78 @@ export async function updateProfile(formData: FormData) {
   let username = formData.get('username') as string
   const bgColor = formData.get('bgColor') as string
   const theme = formData.get('theme') as string
-  const bio = formData.get('bio') as string // <--- 1. ДОДАЄМО ЦЕ
+  const bio = formData.get('bio') as string
   
-  // 1. САНІТИЗАЦІЯ НІКНЕЙМУ (Чистка)
-  // Перетворюємо на малі літери, прибираємо пробіли, лишаємо тільки букви, цифри, дефіс і підкреслення.
-  // Наприклад: "Vasya Pupkin!" -> "vasya-pupkin"
+  // 1. САНІТИЗАЦІЯ НІКНЕЙМУ
   username = username
     .toLowerCase()
     .trim()
-    .replace(/\s+/g, '-')          // Пробіли змінюємо на дефіси
+    .replace(/\s+/g, '-')
+    .replace(/[^a-z0-9-._]/g, '') // Дозволяємо букви, цифри, дефіс, крапку, підкреслення
+    .replace(/\.+/g, '.') 
+    .replace(/-+/g, '-')
+    .replace(/^[\-.]+|[\-.]+$/g, '');
 
   if (username.length < 3) {
-      // Тут можна повернути помилку, якщо нік надто короткий
       console.error("Username too short");
       return; 
   }
 
   // 2. ПЕРЕВІРКА НА УНІКАЛЬНІСТЬ
-  // Шукаємо, чи є такий нікнейм у КОГОСЬ ІНШОГО (не у мене)
   const { data: existingUser } = await supabase
     .from('profiles')
     .select('id')
     .eq('username', username)
-    .neq('id', user.id) // Виключаємо себе з пошуку
+    .neq('id', user.id)
     .single();
 
   if (existingUser) {
-    // Якщо такий юзер вже є — зупиняємось і нічого не зберігаємо!
     console.error("Username is taken!");
-    // В ідеалі тут треба повернути помилку на фронтенд (див. далі)
     return; 
   }
 
-  // ... (Ваш код завантаження аватара залишається без змін) ...
+  // 3. ЗАВАНТАЖЕННЯ АВАТАРКИ (ВИПРАВЛЕНО)
   const file = formData.get('avatar') as File
-  let avatarUrl = null;
-  // ... (код upload) ...
+  let newAvatarUrl = null; // Тимчасова змінна для посилання
 
+  if (file && file.size > 0) {
+    const fileExt = file.name.split('.').pop();
+    // Генеруємо унікальне ім'я з часом (Date.now())
+    const fileName = `avatar-${user.id}-${Date.now()}.${fileExt}`;
+
+    const { error: uploadError } = await supabase.storage
+      .from('avatars')
+      .upload(fileName, file, { upsert: true });
+
+    if (uploadError) {
+      console.error('Upload error:', uploadError);
+    } else {
+      // Отримуємо посилання
+      const { data: { publicUrl } } = supabase.storage
+        .from('avatars')
+        .getPublicUrl(fileName);
+      
+      // ✅ Зберігаємо в змінну newAvatarUrl, а не в updateData (якої ще немає)
+      newAvatarUrl = publicUrl;
+    }
+  }
+
+  // 4. ПІДГОТОВКА ДАНИХ ДЛЯ ОНОВЛЕННЯ
   const updateData: any = {
     full_name: fullName,
-    username: username, // Зберігаємо вже "чистий" нікнейм
+    username: username,
     bg_color: bgColor,
     theme: theme,
-    bio: bio, // <--- 2. ДОДАЄМО В ОБ'ЄКТ ДЛЯ ЗАПИСУ
+    bio: bio,
     updated_at: new Date().toISOString(),
   }
 
-  if (avatarUrl) {
-    updateData.avatar_url = avatarUrl
+  // Якщо ми завантажили нову фотку - додаємо її до оновлення
+  if (newAvatarUrl) {
+    updateData.avatar_url = newAvatarUrl;
   }
 
+  // 5. ЗАПИС В БАЗУ
   const { error } = await supabase
     .from('profiles')
     .update(updateData)
@@ -108,7 +130,8 @@ export async function updateProfile(formData: FormData) {
       console.error("Update error:", error);
   } else {
       revalidatePath('/admin')
-      revalidatePath(`/${username}`) // Оновлюємо кеш вже нової сторінки
+      // Оновлюємо кеш профілю, щоб всі бачили нову фотку
+      revalidatePath(`/${username}`) 
   }
 }
 
